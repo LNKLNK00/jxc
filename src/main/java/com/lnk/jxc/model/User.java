@@ -40,4 +40,9 @@ public class User {
     public void setRoleId(Byte roleId) {
         this.roleId = roleId;
     }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", username=" + username + ", password=" + password + ", roleId=" + roleId + "]";
+    }
 }
