@@ -2,16 +2,18 @@ package com.lnk.jxc.dao;
 
 import com.lnk.jxc.model.User;
 
+/**
+ * <p>title:用户数据访问对象</p>
+ * <p>description:</p>
+ * @author Nick Liu
+ * @createTime 2017年3月28日 下午5:52:25
+ */
 public interface UserMapper {
-    int deleteByPrimaryKey(Byte id);
 
-    int insert(User record);
-
-    int insertSelective(User record);
-
-    User selectByPrimaryKey(Byte id);
-
-    int updateByPrimaryKeySelective(User record);
-
-    int updateByPrimaryKey(User record);
+    /**
+     * 用户登录
+     * @param User user
+     * @return User
+     */
+    User login(User user);
 }
