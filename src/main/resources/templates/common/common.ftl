@@ -1,1 +1,1 @@
-<#assign base="/">
+<#assign basePath="/jxc">
