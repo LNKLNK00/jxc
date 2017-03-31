@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-03-28 12:33:49
+Date: 2017-03-31 22:03:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,8 @@ CREATE TABLE `order_product` (
   `product_id` int(8) NOT NULL COMMENT '产品ID',
   `num` tinyint(3) NOT NULL COMMENT '购买数量',
   `rate` float(2,2) NOT NULL DEFAULT '0.00' COMMENT '折扣利率',
-  `price` float(5,2) NOT NULL COMMENT '成交单价',
+  `price` float(5,2) NOT NULL COMMENT '售价',
+  `bid` float(5,2) NOT NULL COMMENT '进价',
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`)
@@ -68,6 +69,8 @@ CREATE TABLE `product` (
   `num` tinyint(3) NOT NULL COMMENT '库存数量',
   `factory` varchar(30) DEFAULT NULL COMMENT '生产厂家',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(1：上架， 0：下架)',
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
