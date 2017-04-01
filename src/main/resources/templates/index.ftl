@@ -57,7 +57,7 @@
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
                 <li id="menu-1" url="https://www.baidu.com"><a><i class="fa fa-home"></i> <span>主页</span></a></li>
-                <li id="menu-2" url="https://www.taobao.com"><a><i class="fa fa-tasks"></i> <span>商品管理</span></a></li>
+                <li id="menu-2" url="${basePath}/product/index.html"><a><i class="fa fa-tasks"></i> <span>商品管理</span></a></li>
                 <li id="menu-3" url="https://www.tmall.com"><a><i class="fa fa-truck"></i> <span>进货管理</span></a></li>
                 <li id="menu-4" url="https://www.JD.com"><a><i class="fa fa-shopping-cart"></i> <span>销售管理</span></a></li>
                 <li id="menu-5" url="http://www.csdn.net/"><a><i class="fa fa-bar-chart-o"></i> <span>销售报表</span></a></li>
