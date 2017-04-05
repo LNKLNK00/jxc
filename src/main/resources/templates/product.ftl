@@ -26,20 +26,12 @@
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="${basePath}/js/html5shiv.js"></script>
+    <script src="${basePath}/js/respond.min.js"></script>
     <![endif]-->
 </head>
 
 <body style="background:white;">
-        <div class="row" style="padding:15px;">
-            <div class="col-lg-12">
-                <label>名称:  </label><input placeholder="名称" />
-                <label>名称:  </label><input placeholder="名称" />
-                <button class="btn btn-primary" type="button">查询</button>
-                <a class="btn btn-success" data-toggle="modal" href="#addPsroduct">添加商品</a>
-            </div>
-        </div>
         <div class="row">
             <div class="col-sm-12">
                 <section class="panel">
@@ -48,63 +40,43 @@
                             <table  class="display table table-bordered table-striped" id="dynamic-table">
                                 <thead>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th class="hidden-phone">Engine version</th>
-                                        <th class="hidden-phone">CSS grade</th>
+                                        <th>序号</th>
+                                        <th>名称</th>
+                                        <th>规格</th>
+                                        <th>单位</th>
+                                        <th>进价</th>
+                                        <th>售价</th>
+                                        <th>库存数量</th>
+                                        <th>生产厂家</th>
+                                        <th>状态</th>
+                                        <th>创建时间</th>
+                                        <th>修改时间</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet
-                                            Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center hidden-phone">4</td>
-                                        <td class="center hidden-phone">X</td>
-                                    </tr>
-                                    <tr class="gradeC">
-                                        <td>Trident</td>
-                                        <td>Internet
-                                            Explorer 5.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center hidden-phone">5</td>
-                                        <td class="center hidden-phone">C</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet
-                                            Explorer 5.5</td>
-                                        <td>Win 95+</td>
-                                        <td class="center hidden-phone">5.5</td>
-                                        <td class="center hidden-phone">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet
-                                            Explorer 6</td>
-                                        <td>Win 98+</td>
-                                        <td class="center hidden-phone">6</td>
-                                        <td class="center hidden-phone">A</td>
-                                    </tr>
-                                    <tr class="gradeA">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 7</td>
-                                        <td>Win XP SP2+</td>
-                                        <td class="center hidden-phone">7</td>
-                                        <td class="center hidden-phone">A</td>
-                                    </tr>
+                                <tbody id="tbody">
+                                    <#if productList?exists>
+                                        <#list productList as product>
+                                           <tr class='gradeA'>
+                                                <td>${product_index+1}</td>
+                                                <td>${product.names}</td>
+                                                <td>${product.norms}</td>
+                                                <td>${product.unit}</td>
+                                                <td>${product.bid}</td>
+                                                <td>${product.price}</td>
+                                                <td>${product.num}</td>
+                                                <td>${product.factory}</td>
+                                                <td>${product.status}</td>
+                                                <td>${product.createTime}</td>
+                                                <td>${product.updateTime}</td>
+                                                <td>
+                                                    <button data-dismiss='modal' class='btn btn-danger' type='button'>下架</button>
+                                                    <button data-dismiss='modal' class='btn btn-success' type='button'>修改</button>
+                                                </td>
+                                           </tr>
+                                        </#list>
+                                    </#if>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th class="hidden-phone">Engine version</th>
-                                        <th class="hidden-phone">CSS grade</th>
-                                    </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -117,93 +89,50 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Datepicker in Modal</h4>
+                        <h4 class="modal-title">添加商品</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="#" class="form-horizontal ">
+                        <form id="form-add" class="form-horizontal" action="#">
                             <div class="form-group">
-                                <label class="control-label col-md-4"> Date time picker</label>
+                                <label class="control-label col-md-4">商品名称</label>
                                 <div class="col-md-6">
-                                    <input size="16" type="text" value="2012-06-15 14:45" readonly="" class="form_datetime form-control">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4">Default Datepicker</label>
-                                <div class="col-md-6 col-xs-11">
-                                    <input class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value="">
-                                    <span class="help-block">Select date</span>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-4">Start with years viewMode</label>
-                                <div class="col-md-6 col-xs-11">
-
-                                    <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
-                                        <input type="text" readonly="" value="12-02-2012" size="16" class="form-control">
-                                                  <span class="input-group-btn add-on">
-                                                    <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
-                                                  </span>
-                                    </div>
-                                    <span class="help-block">Select date</span>
+                                    <input size="50" type="text" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-4">Months Only</label>
-                                <div class="col-md-6 col-xs-11">
-                                    <div data-date-minviewmode="months" data-date-viewmode="years" data-date-format="mm/yyyy" data-date="102/2012" class="input-append date dpMonths">
-                                        <input type="text" readonly="" value="02/2012" size="16" class="form-control">
-                                                  <span class="input-group-btn add-on">
-                                                    <button class="btn btn-primary" type="button"><i class="fa fa-calendar"></i></button>
-                                                  </span>
-                                    </div>
-
-
-                                    <span class="help-block">Select month only</span>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-4">Date Range</label>
+                                <label class="control-label col-md-4">商品规格</label>
                                 <div class="col-md-6">
-                                    <div class="input-group input-large custom-date-range" data-date="13/07/2013" data-date-format="mm/dd/yyyy">
-                                        <input type="text" class="form-control dpd1" name="from">
-                                        <span class="input-group-addon">To</span>
-                                        <input type="text" class="form-control dpd2" name="to">
-                                    </div>
-                                    <span class="help-block">Select date range</span>
+                                    <input size="20" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">单位</label>
+                                <div class="col-md-6">
+                                    <input size="2" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">进价</label>
+                                <div class="col-md-6">
+                                    <input size="8" onkeyup="checkNum(this)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">售价</label>
+                                <div class="col-md-6">
+                                    <input size="8" onkeyup="checkNum(this)" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">生产厂家</label>
+                                <div class="col-md-6">
+                                    <input size="30" class="form-control">
                                 </div>
                             </div>
                         </form>
                     </div>
-
-
-                    <form class="form-horizontal  " action="#">
-                        <div class="form-group">
-                            <label class="control-label col-md-4">Default Timepicker</label>
-                            <div class="col-md-6">
-                                <div class="input-group bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker-default">
-                                        <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-4">24hr Timepicker</label>
-                            <div class="col-md-6">
-                                <div class="input-group bootstrap-timepicker">
-                                    <input type="text" class="form-control timepicker-24">
-                                        <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                     <div class="modal-footer">
-                        <button data-dismiss="modal" class="btn btn-primary" type="button">提交</button>
+                        <button data-dismiss="modal" id="submit-add" class="btn btn-primary" type="button">提交</button>
                         <button data-dismiss="modal" class="btn btn-primary" type="button">取消</button>
                     </div>
                 </div>
@@ -232,10 +161,97 @@
 <!--dynamic table-->
 <script type="text/javascript" language="javascript" src="${basePath}/js/advanced-datatable/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="${basePath}/js/data-tables/DT_bootstrap.js"></script>
-<!--dynamic table initialization -->
-<script src="${basePath}/js/dynamic_table_init.js"></script>
+
 <script type="text/javascript">
+function fnFormatDetails ( oTable, nTr ){
+    var aData = oTable.fnGetData( nTr );
+    var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+    sOut += '<tr><td>Rendering engine:</td><td>'+aData[1]+' '+aData[4]+'</td></tr>';
+    sOut += '<tr><td>Link to source:</td><td>Could provide a link here</td></tr>';
+    sOut += '<tr><td>Extra info:</td><td>And any further details here (images etc)</td></tr>';
+    sOut += '</table>';
+
+    return sOut;
+}
+
+$(document).ready(function() {
+
+    $('#dynamic-table').dataTable( {
+        "aaSorting": [[ 9, "desc" ]]
+    } );
+
+    /*
+     * Insert a 'details' column to the table
+     */
+    var nCloneTh = document.createElement( 'th' );
+    var nCloneTd = document.createElement( 'td' );
+    nCloneTd.innerHTML = '<img src="images/details_open.png">';
+    nCloneTd.className = "center";
+
+    $('#hidden-table-info thead tr').each( function () {
+        this.insertBefore( nCloneTh, this.childNodes[0] );
+    } );
+
+    $('#hidden-table-info tbody tr').each( function () {
+        this.insertBefore(  nCloneTd.cloneNode( true ), this.childNodes[0] );
+    } );
+
+    /*
+     * Initialse DataTables, with no sorting on the 'details' column
+     */
+    var oTable = $('#hidden-table-info').dataTable( {
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [ 0 ] }
+        ],
+        "aaSorting": [[1, 'asc']]
+    });
+
+    /* Add event listener for opening and closing details
+     * Note that the indicator for showing which row is open is not controlled by DataTables,
+     * rather it is done here
+     */
+    $(document).on('click','#hidden-table-info tbody td img',function () {
+        var nTr = $(this).parents('tr')[0];
+        if ( oTable.fnIsOpen(nTr) )
+        {
+            /* This row is already open - close it */
+            this.src = "images/details_open.png";
+            oTable.fnClose( nTr );
+        }
+        else
+        {
+            /* Open this row */
+            this.src = "images/details_close.png";
+            oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
+        }
+    } );
     
+    $("#submit-add").on("click",function(){
+        $("#form-add").submit();
+    });
+    
+} );
+function initTable(){
+    $.ajax({
+        type: "POST",
+        url: "${basePath}/product/selectAllProduct",
+        data: null,
+        dataType: "json",
+        beforeSend: function(XMLHttpRequest) {
+            
+        },
+        success: function(data){
+            if(data.code==0){
+                changeHtml(data.data);
+            }else{
+                //Toast(data.message,"error");
+            }
+        },
+        complete: function(XMLHttpRequest, textStatus) {
+            
+        }
+    });
+}
 </script>
 </body>
 </html>

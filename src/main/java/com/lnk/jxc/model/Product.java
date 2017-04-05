@@ -13,11 +13,15 @@ public class Product {
 
     private Float price;
 
-    private Byte num;
+    private Integer num;
 
     private String factory;
 
-    private Boolean status;
+    private Integer status;
+
+    private String createTime;
+
+    private String updateTime;
 
     public Integer getId() {
         return id;
@@ -67,11 +71,11 @@ public class Product {
         this.price = price;
     }
 
-    public Byte getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(Byte num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 
@@ -83,11 +87,27 @@ public class Product {
         this.factory = factory == null ? null : factory.trim();
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

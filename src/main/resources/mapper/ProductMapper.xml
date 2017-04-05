@@ -11,91 +11,27 @@
     <result column="num" property="num" jdbcType="TINYINT" />
     <result column="factory" property="factory" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, names, norms, unit, bid, price, num, factory, status
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from product
-    where id = #{id,jdbcType=INTEGER}
+  
+  <select id="selectAllProduct" resultMap="BaseResultMap" >
+    SELECT 
+    *
+    FROM product
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from product
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.lnk.jxc.model.Product" >
-    insert into product (id, names, norms, 
+  
+  <insert id="addProduct" parameterType="com.lnk.jxc.model.Product" >
+    INSERT INTO product (names, norms, 
       unit, bid, price, num, 
-      factory, status)
-    values (#{id,jdbcType=INTEGER}, #{names,jdbcType=VARCHAR}, #{norms,jdbcType=VARCHAR}, 
+      factory, status, create_time)
+    VALUES (#{names,jdbcType=VARCHAR}, #{norms,jdbcType=VARCHAR}, 
       #{unit,jdbcType=CHAR}, #{bid,jdbcType=REAL}, #{price,jdbcType=REAL}, #{num,jdbcType=TINYINT}, 
-      #{factory,jdbcType=VARCHAR}, #{status,jdbcType=BIT})
+      #{factory,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, NOW())
   </insert>
-  <insert id="insertSelective" parameterType="com.lnk.jxc.model.Product" >
-    insert into product
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="names != null" >
-        names,
-      </if>
-      <if test="norms != null" >
-        norms,
-      </if>
-      <if test="unit != null" >
-        unit,
-      </if>
-      <if test="bid != null" >
-        bid,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-      <if test="factory != null" >
-        factory,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="names != null" >
-        #{names,jdbcType=VARCHAR},
-      </if>
-      <if test="norms != null" >
-        #{norms,jdbcType=VARCHAR},
-      </if>
-      <if test="unit != null" >
-        #{unit,jdbcType=CHAR},
-      </if>
-      <if test="bid != null" >
-        #{bid,jdbcType=REAL},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=REAL},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=TINYINT},
-      </if>
-      <if test="factory != null" >
-        #{factory,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=BIT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lnk.jxc.model.Product" >
-    update product
+  
+  <update id="updateProductById" parameterType="com.lnk.jxc.model.Product" >
+    UPDATE product
     <set >
       <if test="names != null" >
         names = #{names,jdbcType=VARCHAR},
@@ -106,34 +42,23 @@
       <if test="unit != null" >
         unit = #{unit,jdbcType=CHAR},
       </if>
-      <if test="bid != null" >
-        bid = #{bid,jdbcType=REAL},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=REAL},
-      </if>
-      <if test="num != null" >
-        num = #{num,jdbcType=TINYINT},
-      </if>
       <if test="factory != null" >
         factory = #{factory,jdbcType=VARCHAR},
       </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=BIT},
-      </if>
+      update_time = NOW()
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    WHERE id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lnk.jxc.model.Product" >
-    update product
-    set names = #{names,jdbcType=VARCHAR},
-      norms = #{norms,jdbcType=VARCHAR},
-      unit = #{unit,jdbcType=CHAR},
-      bid = #{bid,jdbcType=REAL},
-      price = #{price,jdbcType=REAL},
-      num = #{num,jdbcType=TINYINT},
-      factory = #{factory,jdbcType=VARCHAR},
-      status = #{status,jdbcType=BIT}
-    where id = #{id,jdbcType=INTEGER}
+  
+  <update id="updateStatusById" parameterType="java.lang.Integer" >
+    UPDATE product
+    SET status = #{status,jdbcType=INTEGER}
+    WHERE id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateNumById" parameterType="java.lang.Integer" >
+    UPDATE product
+    SET num = num + #{status,jdbcType=INTEGER}
+    WHERE id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
