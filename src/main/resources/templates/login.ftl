@@ -9,13 +9,13 @@
     <#include "/common/common.ftl">
     <title>登录</title>
 
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="${basePath}/css/style.css" rel="stylesheet">
+    <link href="${basePath}/css/style-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
+    <script src="${basePath}/js/html5shiv.js"></script>
+    <script src="${basePath}/js/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -26,7 +26,7 @@
     <form class="form-signin" action="${basePath}/toLogin.html" method="POST">
         <div class="form-signin-heading text-center">
             <h1 class="sign-title">芦洲兽药管理系统</h1>
-            <img src="images/login-logo.png"/>
+            <img src="${basePath}/images/login-logo.png"/>
         </div>
         
         <div class="login-wrap">
@@ -42,9 +42,9 @@
     </form>
 
 </div>
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/modernizr.min.js"></script>
+<script src="${basePath}/js/jquery-1.10.2.min.js"></script>
+<script src="${basePath}/js/bootstrap.min.js"></script>
+<script src="${basePath}/js/modernizr.min.js"></script>
 <script type="text/javascript">
     $(".btn-login").on("click",function(){
         if($("#username").val()==''||$("#password").val()==''){
