@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-03-31 22:03:06
+Date: 2017-04-05 15:01:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,17 +66,18 @@ CREATE TABLE `product` (
   `unit` char(1) NOT NULL COMMENT '单位',
   `bid` float(5,2) NOT NULL COMMENT '进价',
   `price` float(5,2) NOT NULL COMMENT '定价',
-  `num` tinyint(3) NOT NULL COMMENT '库存数量',
+  `num` tinyint(3) NOT NULL DEFAULT '0' COMMENT '库存数量',
   `factory` varchar(30) DEFAULT NULL COMMENT '生产厂家',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(1：上架， 0：下架)',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of product
 -- ----------------------------
+INSERT INTO `product` VALUES ('1', '感冒药', '25g*12袋/盒', '盒', '30.00', '60.00', '0', '湖南兽药厂', '1', '2017-04-04 22:04:15', '2017-04-04 22:04:11');
 
 -- ----------------------------
 -- Table structure for stock
