@@ -35,8 +35,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int updateStatusById(Integer status) {
-        return productMapper.updateStatusById(status);
+    public int updateStatusById(Product product) {
+        return productMapper.updateStatusById(product);
     }
 
     @Override

@@ -17,7 +17,8 @@
   
   <select id="selectAllProduct" resultMap="BaseResultMap" >
     SELECT 
-    *
+    id,names,norms,unit,bid,price,num,factory,status,
+    DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") as create_time,DATE_FORMAT(update_time,"%Y-%m-%d %H:%i:%s") as update_time
     FROM product
   </select>
   
@@ -26,8 +27,8 @@
       unit, bid, price, num, 
       factory, status, create_time)
     VALUES (#{names,jdbcType=VARCHAR}, #{norms,jdbcType=VARCHAR}, 
-      #{unit,jdbcType=CHAR}, #{bid,jdbcType=REAL}, #{price,jdbcType=REAL}, #{num,jdbcType=TINYINT}, 
-      #{factory,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, NOW())
+      #{unit,jdbcType=CHAR}, #{bid,jdbcType=REAL}, #{price,jdbcType=REAL}, 0, 
+      #{factory,jdbcType=VARCHAR}, 1, NOW())
   </insert>
   
   <update id="updateProductById" parameterType="com.lnk.jxc.model.Product" >
@@ -50,15 +51,15 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
   
-  <update id="updateStatusById" parameterType="java.lang.Integer" >
+  <update id="updateStatusById" parameterType="com.lnk.jxc.model.Product" >
     UPDATE product
-    SET status = #{status,jdbcType=INTEGER}
+    SET status = #{status,jdbcType=INTEGER},update_time=NOW()
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
   
   <update id="updateNumById" parameterType="java.lang.Integer" >
     UPDATE product
-    SET num = num + #{status,jdbcType=INTEGER}
+    SET num = num + #{num,jdbcType=INTEGER}
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

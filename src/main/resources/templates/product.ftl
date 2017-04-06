@@ -32,6 +32,9 @@
 </head>
 
 <body style="background:white;">
+        <div class="row" style="padding:15px;">
+            <a href="#addProduct" class="btn btn-primary" data-toggle="modal">添加商品</a>
+        </div>
         <div class="row">
             <div class="col-sm-12">
                 <section class="panel">
@@ -66,12 +69,24 @@
                                                 <td>${product.price}</td>
                                                 <td>${product.num}</td>
                                                 <td>${product.factory}</td>
-                                                <td>${product.status}</td>
-                                                <td>${product.createTime}</td>
-                                                <td>${product.updateTime}</td>
                                                 <td>
-                                                    <button data-dismiss='modal' class='btn btn-danger' type='button'>下架</button>
-                                                    <button data-dismiss='modal' class='btn btn-success' type='button'>修改</button>
+                                                    <#if product.status = 1>
+                                                                                                                    上架
+                                                    </#if>
+                                                    <#if product.status = 0>
+                                                                                                                    下架
+                                                    </#if>
+                                                </td>
+                                                <td>${product.createTime}</td>
+                                                <td>${product.updateTime!''}</td>
+                                                <td>
+                                                    <#if product.status = 1>
+                                                        <button data-dismiss='modal' onclick="updateStatus(${product.id},0)" class='btn btn-danger' type='button'>下架</button>
+                                                    </#if>
+                                                    <#if product.status = 0>
+                                                        <button data-dismiss='modal' onclick="updateStatus(${product.id},1)" class='btn btn-success' type='button'>上架</button>
+                                                    </#if>
+                                                    <a href="#updateProduct" onclick="initUpdateParam('${product.id}','${product.names}','${product.norms}','${product.unit}','${product.factory}');" data-toggle="modal" class='btn btn-success'>修改</a>
                                                 </td>
                                            </tr>
                                         </#list>
@@ -84,7 +99,7 @@
             </div>
         </div>
         
-        <div class="modal fade in" id="addPsroduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+        <div class="modal fade in" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -96,43 +111,93 @@
                             <div class="form-group">
                                 <label class="control-label col-md-4">商品名称</label>
                                 <div class="col-md-6">
-                                    <input size="50" type="text" class="form-control">
+                                    <input size="50" type="text" id="names" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4">商品规格</label>
                                 <div class="col-md-6">
-                                    <input size="20" type="text" class="form-control">
+                                    <input size="20" type="text" id="norms" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4">单位</label>
                                 <div class="col-md-6">
-                                    <input size="2" type="text" class="form-control">
+                                    <input size="2" type="text" id="unit" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4">进价</label>
                                 <div class="col-md-6">
-                                    <input size="8" onkeyup="checkNum(this)" class="form-control">
+                                    <input size="8" onkeyup="checkNum(this)" id="bid" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4">售价</label>
                                 <div class="col-md-6">
-                                    <input size="8" onkeyup="checkNum(this)" class="form-control">
+                                    <input size="8" onkeyup="checkNum(this)" id="price" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-4">生产厂家</label>
                                 <div class="col-md-6">
-                                    <input size="30" class="form-control">
+                                    <input size="30" class="form-control" id="factory">
                                 </div>
+                            </div>
+                            <div classs="col-md-12" id="add_msg" style="color: #a94442;height:20px;height:30px;text-align:center;">
+                                
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button data-dismiss="modal" id="submit-add" class="btn btn-primary" type="button">提交</button>
+                        <button id="submit-add" class="btn btn-primary" type="button">提交</button>
+                        <button data-dismiss="modal" class="btn btn-primary" type="button">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade in" id="updateProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">修改商品信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-add" class="form-horizontal" action="#">
+                            <div class="form-group">
+                                <label class="control-label col-md-4">商品名称</label>
+                                <div class="col-md-6">
+                                    <input type="hidden" id="update_id">
+                                    <input size="50" type="text" id="update_names" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">商品规格</label>
+                                <div class="col-md-6">
+                                    <input size="20" type="text" id="update_norms" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">单位</label>
+                                <div class="col-md-6">
+                                    <input size="2" type="text" id="update_unit" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4">生产厂家</label>
+                                <div class="col-md-6">
+                                    <input size="30" class="form-control" id="update_factory">
+                                </div>
+                            </div>
+                            <div classs="col-md-12" id="update_msg" style="color: #a94442;height:20px;height:30px;text-align:center;">
+                                
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="update-add" class="btn btn-primary" type="button">提交</button>
                         <button data-dismiss="modal" class="btn btn-primary" type="button">取消</button>
                     </div>
                 </div>
@@ -177,7 +242,7 @@ function fnFormatDetails ( oTable, nTr ){
 $(document).ready(function() {
 
     $('#dynamic-table').dataTable( {
-        "aaSorting": [[ 9, "desc" ]]
+        "aaSorting": [[ 10, "desc" ]]
     } );
 
     /*
@@ -227,10 +292,79 @@ $(document).ready(function() {
     } );
     
     $("#submit-add").on("click",function(){
-        $("#form-add").submit();
+        var names = $("#names").val();
+        var norms = $("#norms").val();
+        var unit = $("#unit").val();
+        var bid = $("#bid").val();
+        var price = $("#price").val();
+        var factory = $("#factory").val();
+        if(names==''||norms==''||unit==''||bid==''||price==''){
+            $("#add_msg").html("请将信息填完整！");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "${basePath}/product/addProduct",
+            data: {names:names,norms:norms,unit:unit,bid:bid,price:price,factory:factory},
+            dataType: "json",
+            success: function(data){
+                if(data.code==0){
+                    location.reload();
+                }else{
+                    $("#add_msg").html(data.message);
+                    return false;
+                }
+            }
+        });
     });
-    
+    $("#update-add").on("click",function(){
+        var id = $("#update_id").val();
+        var names = $("#update_names").val();
+        var norms = $("#update_norms").val();
+        var unit = $("#update_unit").val();
+        var factory = $("#update_factory").val();
+        if(names==''||norms==''||unit==''){
+            $("#update_msg").html("请将信息填完整！");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: "${basePath}/product/updateProduct",
+            data: {id:id,names:names,norms:norms,unit:unit,factory:factory},
+            dataType: "json",
+            success: function(data){
+                if(data.code==0){
+                    location.reload();
+                }else{
+                    $("#update_msg").html(data.message);
+                    return false;
+                }
+            }
+        });
+    });
 } );
+function updateStatus(id,status){
+    $.ajax({
+        type: "POST",
+        url: "${basePath}/product/updateStatus",
+        data: {id:id,status:status},
+        dataType: "json",
+        success: function(data){
+            if(data.code==0){
+                location.reload();
+            }else{
+                //Toast(data.message,"error");
+            }
+        }
+    });
+}
+function initUpdateParam(id,names,norms,unit,factory){
+    $("#update_id").val(id);
+    $("#update_names").val(names);
+    $("#update_norms").val(norms);
+    $("#update_unit").val(unit);
+    $("#update_factory").val(factory);
+}
 function initTable(){
     $.ajax({
         type: "POST",

@@ -55,7 +55,70 @@ public class ProductController {
             response.setCode(EnumResultCode.RERULT_CODE_ERROR.getCode());
             response.setMessage("查询所有商品失败：" + e.getMessage());
         }
-        LOG.info("{查询所有商品,响应结果：" + response.getMessage() + "}");
+        LOG.info("{接口/product/selectAllProduct,响应结果：" + response.getMessage() + "}");
+        return response;
+    }
+
+    @PostMapping("/updateStatus")
+    @ResponseBody
+    public ResponseDto<Boolean> updateStatus(Product product) {
+        LOG.info("{call 修改商品状态:" + product + "}");
+        ResponseDto<Boolean> response = new ResponseDto<Boolean>();
+        response.setCode(EnumResultCode.RERULT_CODE_SUCCESS.getCode());
+        response.setMessage("修改商品状态成功");
+        try {
+            Boolean data = productService.updateStatusById(product) > 0;
+            response.setData(data);
+        } catch (Exception e) {
+            LOG.error("修改商品状态失败：" + e.getMessage());
+            response.setCode(EnumResultCode.RERULT_CODE_ERROR.getCode());
+            response.setMessage("修改商品状态失败：" + e.getMessage());
+        }
+        LOG.info("{接口/product/updateStatus,响应结果：" + response.getMessage() + "}");
+        return response;
+    }
+
+    @PostMapping("/addProduct")
+    @ResponseBody
+    public ResponseDto<Boolean> addProduct(Product product) {
+        LOG.info("{call 添加商品:" + product + "}");
+        ResponseDto<Boolean> response = new ResponseDto<Boolean>();
+        response.setCode(EnumResultCode.RERULT_CODE_SUCCESS.getCode());
+        response.setMessage("添加商品成功");
+        try {
+            Boolean data = productService.addProduct(product) > 0;
+            if (!data) {
+                response.setCode(EnumResultCode.RERULT_CODE_ERROR.getCode());
+                response.setMessage("添加商品失败！");
+            }
+        } catch (Exception e) {
+            LOG.error("添加商品失败：" + e.getMessage());
+            response.setCode(EnumResultCode.RERULT_CODE_ERROR.getCode());
+            response.setMessage("添加商品失败！");
+        }
+        LOG.info("{接口/product/addProduct,响应结果：" + response.getMessage() + "}");
+        return response;
+    }
+
+    @PostMapping("/updateProduct")
+    @ResponseBody
+    public ResponseDto<Boolean> updateProduct(Product product) {
+        LOG.info("{call 修改商品:" + product + "}");
+        ResponseDto<Boolean> response = new ResponseDto<Boolean>();
+        response.setCode(EnumResultCode.RERULT_CODE_SUCCESS.getCode());
+        response.setMessage("修改商品成功");
+        try {
+            Boolean data = productService.updateProductById(product) > 0;
+            if (!data) {
+                response.setCode(EnumResultCode.RERULT_CODE_ERROR.getCode());
+                response.setMessage("修改商品失败！");
+            }
+        } catch (Exception e) {
+            LOG.error("修改商品失败：" + e.getMessage());
+            response.setCode(EnumResultCode.RERULT_CODE_ERROR.getCode());
+            response.setMessage("修改商品失败！");
+        }
+        LOG.info("{接口/product/updateProduc,响应结果：" + response.getMessage() + "}");
         return response;
     }
 

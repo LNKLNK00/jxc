@@ -35,10 +35,10 @@ public interface ProductMapper {
 
     /**
      * 上、下架商品
-     * @param Integer status
+     * @param Product product
      * @return int
      */
-    int updateStatusById(Integer status);
+    int updateStatusById(Product product);
 
     /**
      * 修改库存

@@ -110,4 +110,11 @@ public class Product {
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Product [id=" + id + ", names=" + names + ", norms=" + norms + ", unit=" + unit + ", bid=" + bid
+                + ", price=" + price + ", num=" + num + ", factory=" + factory + ", status=" + status + ", createTime="
+                + createTime + ", updateTime=" + updateTime + "]";
+    }
 }
