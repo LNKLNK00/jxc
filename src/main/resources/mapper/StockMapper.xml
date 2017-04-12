@@ -5,113 +5,28 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="product_id" property="productId" jdbcType="INTEGER" />
     <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="norms" property="norms" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="CHAR" />
+    <result column="factory" property="factory" jdbcType="VARCHAR" />
     <result column="num" property="num" jdbcType="TINYINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="TINYINT" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, product_id, product_name, num, create_time, user_name, user_id
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from stock
-    where id = #{id,jdbcType=INTEGER}
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT 
+    pro.names as product_name,pro.norms,pro.unit,pro.factory,stock.num,
+    DATE_FORMAT(stock.create_time,"%Y-%m-%d %H:%i:%s") as create_time,user_name
+    FROM stock stock
+    LEFT JOIN product pro ON pro.id = stock.product_id
+    ORDER BY stock.create_time DESC
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from stock
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
+  
   <insert id="insert" parameterType="com.lnk.jxc.model.Stock" >
-    insert into stock (id, product_id, product_name, 
-      num, create_time, user_name, 
-      user_id)
-    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
-      #{num,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=TINYINT})
+    INSERT INTO stock (product_id, product_name, 
+      num, create_time, user_name, user_id)
+    VALUES (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
+      #{num,jdbcType=TINYINT}, NOW(), #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=TINYINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.lnk.jxc.model.Stock" >
-    insert into stock
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="productId != null" >
-        product_id,
-      </if>
-      <if test="productName != null" >
-        product_name,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="userName != null" >
-        user_name,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="productId != null" >
-        #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="productName != null" >
-        #{productName,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lnk.jxc.model.Stock" >
-    update stock
-    <set >
-      <if test="productId != null" >
-        product_id = #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="productName != null" >
-        product_name = #{productName,jdbcType=VARCHAR},
-      </if>
-      <if test="num != null" >
-        num = #{num,jdbcType=TINYINT},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=TINYINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.lnk.jxc.model.Stock" >
-    update stock
-    set product_id = #{productId,jdbcType=INTEGER},
-      product_name = #{productName,jdbcType=VARCHAR},
-      num = #{num,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      user_name = #{userName,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=TINYINT}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>

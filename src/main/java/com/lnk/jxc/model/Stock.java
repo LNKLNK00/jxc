@@ -1,7 +1,5 @@
 package com.lnk.jxc.model;
 
-import java.util.Date;
-
 public class Stock {
     private Integer id;
 
@@ -9,13 +7,19 @@ public class Stock {
 
     private String productName;
 
-    private Byte num;
+    private Integer num;
 
-    private Date createTime;
+    private String createTime;
 
     private String userName;
 
-    private Byte userId;
+    private String norms;
+
+    private String unit;
+
+    private String factory;
+
+    private Integer userId;
 
     public Integer getId() {
         return id;
@@ -41,19 +45,19 @@ public class Stock {
         this.productName = productName == null ? null : productName.trim();
     }
 
-    public Byte getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public void setNum(Byte num) {
+    public void setNum(Integer num) {
         this.num = num;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -65,11 +69,35 @@ public class Stock {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Byte getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Byte userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getNorms() {
+        return norms;
+    }
+
+    public void setNorms(String norms) {
+        this.norms = norms;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
     }
 }
