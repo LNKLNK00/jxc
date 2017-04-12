@@ -20,11 +20,25 @@ public interface ProductMapper {
     int addProduct(Product product);
 
     /**
+     * 根据ID查询商品
+     * @param
+     * @return List<Product>
+     */
+    Product selectById(Integer id);
+
+    /**
      * 查询所有商品
      * @param
      * @return List<Product>
      */
     List<Product> selectAllProduct();
+
+    /**
+     * 查询所有上架商品
+     * @param
+     * @return List<Product>
+     */
+    List<Product> selectOnLineProduct();
 
     /**
      * 根据ID修改商品信息
@@ -42,8 +56,8 @@ public interface ProductMapper {
 
     /**
      * 修改库存
-     * @param Integer num
+     * @param Product product
      * @return int
      */
-    int updateNumById(Integer num);
+    int updateNumById(Product product);
 }

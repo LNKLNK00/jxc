@@ -22,6 +22,20 @@
     FROM product
   </select>
   
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    id,names,norms,unit,bid,price,num,factory,status,
+    DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") as create_time,DATE_FORMAT(update_time,"%Y-%m-%d %H:%i:%s") as update_time
+    FROM product WHERE id = #{id}
+  </select>
+  
+  <select id="selectOnLineProduct" resultMap="BaseResultMap" >
+    SELECT 
+    id,names,norms,unit,bid,price,num,factory,status,
+    DATE_FORMAT(create_time,"%Y-%m-%d %H:%i:%s") as create_time,DATE_FORMAT(update_time,"%Y-%m-%d %H:%i:%s") as update_time
+    FROM product WHERE status = 1
+  </select>
+  
   <insert id="addProduct" parameterType="com.lnk.jxc.model.Product" >
     INSERT INTO product (names, norms, 
       unit, bid, price, num, 
@@ -57,7 +71,7 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
   
-  <update id="updateNumById" parameterType="java.lang.Integer" >
+  <update id="updateNumById" parameterType="com.lnk.jxc.model.Product" >
     UPDATE product
     SET num = num + #{num,jdbcType=INTEGER}
     WHERE id = #{id,jdbcType=INTEGER}

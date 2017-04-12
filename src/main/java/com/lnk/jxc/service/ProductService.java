@@ -20,11 +20,25 @@ public interface ProductService {
     int addProduct(Product product);
 
     /**
+     * 查询商品是否上架
+     * @param
+     * @return Boolean
+     */
+    Boolean isOnline(Integer id);
+
+    /**
      * 查询所有商品
      * @param
      * @return List<Product>
      */
     List<Product> selectAllProduct();
+
+    /**
+     * 查询所有上架商品
+     * @param
+     * @return List<Product>
+     */
+    List<Product> selectOnLineProduct();
 
     /**
      * 根据ID修改商品信息
@@ -45,5 +59,5 @@ public interface ProductService {
      * @param Integer num
      * @return int
      */
-    int updateNumById(Integer num);
+    int updateNumById(Product product);
 }

@@ -40,8 +40,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int updateNumById(Integer num) {
-        return productMapper.updateNumById(num);
+    public int updateNumById(Product product) {
+        return productMapper.updateNumById(product);
+    }
+
+    @Override
+    public List<Product> selectOnLineProduct() {
+        return productMapper.selectOnLineProduct();
+    }
+
+    @Override
+    public Boolean isOnline(Integer id) {
+        Product product = productMapper.selectById(id);
+        if (product != null && product.getStatus() == 1) {
+            return true;
+        }
+        return false;
     }
 
 }
