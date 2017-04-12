@@ -1,19 +1,19 @@
 package com.lnk.jxc.model;
 
 public class User {
-    private Byte id;
+    private Integer id;
 
     private String username;
 
     private String password;
 
-    private Byte roleId;
+    private Integer roleId;
 
-    public Byte getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Byte id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,11 +33,11 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public Byte getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Byte roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 
