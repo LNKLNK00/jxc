@@ -46,6 +46,9 @@
 <script src="${basePath}/js/bootstrap.min.js"></script>
 <script src="${basePath}/js/modernizr.min.js"></script>
 <script type="text/javascript">
+    if(window.top !== window.self){ 
+        window.top.location = window.location;
+    }
     $(".btn-login").on("click",function(){
         if($("#username").val()==''||$("#password").val()==''){
             $("#msg").html("用户名、密码不能为空！");
