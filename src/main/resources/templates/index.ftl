@@ -56,7 +56,7 @@
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li id="menu-1" url="https://www.baidu.com"><a><i class="fa fa-home"></i> <span>主页</span></a></li>
+                <li id="menu-1" url="${basePath}/home.html"><a><i class="fa fa-home"></i> <span>主页</span></a></li>
                 <li id="menu-2" url="${basePath}/product/index.html"><a><i class="fa fa-tasks"></i> <span>商品管理</span></a></li>
                 <li id="menu-3" url="${basePath}/stock/index.html"><a><i class="fa fa-truck"></i> <span>库存管理</span></a></li>
                 <li id="menu-4" url="${basePath}/order/index.html"><a><i class="fa fa-shopping-cart"></i> <span>销售管理</span></a></li>
@@ -102,7 +102,7 @@
 	           <div class="panel-body">
 	               <div class="tab-content">
 	                   <div class="tab-pane active" id="home-1">
-                            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="https://www.baidu.com" frameborder="0" data-id="" seamless></iframe>
+                            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${basePath}/home.html" frameborder="0" data-id="" seamless></iframe>
 	                   </div>
 	               </div>
 	           </div>

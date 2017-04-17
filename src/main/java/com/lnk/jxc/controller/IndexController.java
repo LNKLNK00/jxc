@@ -21,4 +21,10 @@ public class IndexController {
         LOG.info("进入首页");
         return "index";
     }
+
+    @RequestMapping("/home.html")
+    public String home() {
+        LOG.info("进入主页");
+        return "home";
+    }
 }
