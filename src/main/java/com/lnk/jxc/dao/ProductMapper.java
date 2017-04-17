@@ -55,9 +55,16 @@ public interface ProductMapper {
     int updateStatusById(Product product);
 
     /**
-     * 修改库存
+     * 添加库存
      * @param Product product
      * @return int
      */
-    int updateNumById(Product product);
+    int addNumById(Product product);
+
+    /**
+     * 减少库存
+     * @param Product product
+     * @return int
+     */
+    int subNumById(Product product);
 }

@@ -40,11 +40,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int updateNumById(Product product) {
-        return productMapper.updateNumById(product);
-    }
-
-    @Override
     public List<Product> selectOnLineProduct() {
         return productMapper.selectOnLineProduct();
     }

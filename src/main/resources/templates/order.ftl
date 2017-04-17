@@ -40,25 +40,24 @@
             <table class="table table-bordered table-invoice">
                 <thead>
                     <tr>
-                        <th>序号</th>
                         <th>商品名称</th>
                         <th class="text-center">规格</th>
                         <th class="text-center">单位</th>
                         <th class="text-center">单价</th>
                         <th class="text-center">数量</th>
                         <th class="text-center">小计</th>
+                        <th class="text-center">操作</th>
                     </tr>
                 </thead>
-                <tbody id="tbody">
+                <tbody id="tbody" style="border:1px #ddd solid;">
                     
                 </tbody>
             </table>
         </div>
         <div class="text-center">
-            <a href="#addProduct" class="btn btn-success btn-lg" data-toggle="modal"><i class="fa fa-plus"></i>选择商品</a>
-            <!--<a class="btn btn-success btn-lg"><i class="fa fa-check"></i>提交订单</a>
-            <a class="btn btn-primary btn-lg" target="_blank" href="invoice_print.html"><i class="fa fa-print"></i>打印订单</a>
-            -->
+            <a id="toAdd" href="#addProduct" class="btn btn-success btn-lg" data-toggle="modal"><i class="fa fa-plus"></i>选择商品</a>
+            <a id ="toOrder" style="display:none;" class="btn btn-success btn-lg"><i class="fa fa-check"></i>提交订单</a>
+            <a id="toPrint" style="display:none;" class="btn btn-primary btn-lg" target="_blank" href="${basePath}/order/print.html"><i class="fa fa-print"></i>打印订单</a>
         </div>
     </div>  
     
@@ -83,12 +82,12 @@
                                 <th>操作</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody">
+                        <tbody>
                             <#if productList?exists>
                                 <#list productList as product>
                                    <#if (product.num>0)>
                                        <tr class='gradeA'>
-                                            <td>${product.names}</td>
+                                            <td><span>${product.names}</span><input type="hidden" value="${product.id}" /></td>
                                             <td>${product.norms}</td>
                                             <td>${product.unit}</td>
                                             <td>${product.price}</td>
@@ -198,24 +197,30 @@ $(document).ready(function() {
         }
     } );
     
-    $("#submit-add").on("click",function(){
-        var id = $("#productId").val();
-        var num = $("#num").val();
-        if(num <= 0){
-            $("#add_msg").html("数量必须大于0！");
-            return false;
+    $("#toOrder").on("click",function(){
+        var tbody = $("#tbody").children();
+        var param = new Array();
+        for(var i=0;i<tbody.length;i++){
+            var obj = new Object();
+            obj.id = tbody.eq(i).children().eq(0).children("input").val();
+            obj.num = tbody.eq(i).children().eq(4).html();
+            param[i] = obj;
         }
         $.ajax({
             type: "POST",
-            url: "${basePath}/stock/addStock",
-            data: {id:id,num:num},
+            url: "${basePath}/order/toOrder",
+            data: {products:JSON.stringify(param)},
             dataType: "json",
             success: function(data){
                 if(data.code==0){
-                    location.reload();
+                    toastr.info(data.message);
+                    $("#toAdd").hide();
+                    $("#toOrder").hide();
+                    $("#toPrint").show();
+                    $("#tbody").append($("<tr><td colspan='7' class='text-center'>订单编号："+data.data.orderNo+"，订单总价："+data.data.price+"元</td></tr>"));
+                    $("#toPrint").attr("href",$("#toPrint").attr("href")+"?id="+data.data.id);
                 }else{
-                    $("#add_msg").html(data.message);
-                    return false;
+                    toastr.error(data.message);
                 }
             }
         });
@@ -224,8 +229,12 @@ $(document).ready(function() {
 function addOrder(obj){
     var tbody = $("#tbody");
     var tr = $(obj).parent().parent();
-    var num = tr.children().eq(5).html();
+    var name = tr.children().eq(0).children("span").html();
+    var id = tr.children().eq(0).children("input").val();
+    var num = parseInt(tr.children().eq(5).html());
     var count = tr.children().eq(6).children(":first").val();
+    count = count == "" ? 0 : parseInt(count);
+    var price = tr.children().eq(3).html();
     if(count <= 0){
         toastr.warning("请输入购买数量！");
         return false;
@@ -234,17 +243,34 @@ function addOrder(obj){
         toastr.warning("购买数量不能大于库存！");
         return false;
     }
+    for(var i=0;i<tbody.children().length;i++){
+        if(tbody.children().eq(i).children().eq(0).children("input").val()==id){
+            tbody.children().eq(i).remove();
+            break;
+        }
+    }
     var newTr = $("<tr></tr>");
-    <tr>
-        <td>1</td>
-        <td>泻立停</td>
-        <td class="text-center">10粒/盒</td>
-        <td class="text-center">盒</td>
-        <td class="text-center">20</td>
-        <td class="text-center">1</td>
-        <td class="text-center">20</td>
-    </tr>
+    newTr.append($("<td class='text-center'><span>"+name+"</span><input type='hidden' value='"+id+"' /></td>"));
+    newTr.append($("<td class='text-center'>"+tr.children().eq(1).html()+"</td>"));
+    newTr.append($("<td class='text-center'>"+tr.children().eq(2).html()+"</td>"));
+    newTr.append($("<td class='text-center'>"+tr.children().eq(3).html()+"</td>"));
+    newTr.append($("<td class='text-center'>"+count+"</td>"));
+    newTr.append($("<td class='text-center'>"+(price*count).toFixed(2)+"</td>"));
+    newTr.append($("<td class='text-center'><button onclick='remove(this)' class='btn btn-danger'>删除</button></td>"));
+    tbody.append(newTr);
+    if(tbody.children().length > 0){
+        $("#toOrder").show();
+    }else{
+        $("#toOrder").hide();
+    }
     toastr.info("添加成功！");
+}
+function remove(obj){
+    var tbody = $("#tbody");
+    $(obj).parent().parent().remove();
+    if(tbody.children().length <= 0){
+        $("#toOrder").hide();
+    }
 }
 </script>
 </body>

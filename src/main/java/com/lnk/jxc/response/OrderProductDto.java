@@ -1,11 +1,16 @@
-package com.lnk.jxc.model;
+package com.lnk.jxc.response;
 
-public class OrderProduct {
-    private Integer id;
+public class OrderProductDto {
 
     private Integer orderId;
 
     private Integer productId;
+
+    private String productName;
+
+    private String norms;
+
+    private String unit;
 
     private Integer num;
 
@@ -13,15 +18,7 @@ public class OrderProduct {
 
     private Float price;
 
-    private Float bid;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private Float total;
 
     public Integer getOrderId() {
         return orderId;
@@ -37,6 +34,30 @@ public class OrderProduct {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getNorms() {
+        return norms;
+    }
+
+    public void setNorms(String norms) {
+        this.norms = norms;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public Integer getNum() {
@@ -63,11 +84,11 @@ public class OrderProduct {
         this.price = price;
     }
 
-    public Float getBid() {
-        return bid;
+    public Float getTotal() {
+        return total;
     }
 
-    public void setBid(Float bid) {
-        this.bid = bid;
+    public void setTotal(Float total) {
+        this.total = total;
     }
 }

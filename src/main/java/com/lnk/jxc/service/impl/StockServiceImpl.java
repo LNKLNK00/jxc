@@ -30,7 +30,7 @@ public class StockServiceImpl implements StockService {
     @Transactional
     public Boolean addStock(Product product, User user) {
         Product product2 = productMapper.selectById(product.getId());
-        boolean result1 = productMapper.updateNumById(product) > 0;
+        boolean result1 = productMapper.addNumById(product) > 0;
         Stock stock = new Stock();
         stock.setProductId(product2.getId());
         stock.setProductName(product2.getNames());

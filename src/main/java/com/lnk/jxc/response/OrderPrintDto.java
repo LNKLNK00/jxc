@@ -1,27 +1,18 @@
-package com.lnk.jxc.model;
+package com.lnk.jxc.response;
 
-public class OrderInfo {
-    private Integer id;
+import java.util.List;
+
+public class OrderPrintDto {
 
     private String orderNo;
 
     private Float price;
 
-    private Float profit;
-
     private String createTime;
 
     private String userName;
 
-    private Integer userId;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private List<OrderProductDto> productList;
 
     public String getOrderNo() {
         return orderNo;
@@ -37,14 +28,6 @@ public class OrderInfo {
 
     public void setPrice(Float price) {
         this.price = price;
-    }
-
-    public Float getProfit() {
-        return profit;
-    }
-
-    public void setProfit(Float profit) {
-        this.profit = profit;
     }
 
     public String getCreateTime() {
@@ -63,11 +46,11 @@ public class OrderInfo {
         this.userName = userName == null ? null : userName.trim();
     }
 
-    public Integer getUserId() {
-        return userId;
+    public List<OrderProductDto> getProductList() {
+        return productList;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setProductList(List<OrderProductDto> productList) {
+        this.productList = productList;
     }
 }

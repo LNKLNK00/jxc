@@ -1,17 +1,30 @@
 package com.lnk.jxc.dao;
 
+import java.util.List;
+
 import com.lnk.jxc.model.OrderProduct;
+import com.lnk.jxc.response.OrderProductDto;
 
+/**
+ * <p>title:订单产品数据访问接口</p>
+ * <p>description:</p>
+ * @author Nick Liu
+ * @createTime 2017年4月17日 下午3:03:13
+ */
 public interface OrderProductMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(OrderProduct record);
+    /**
+     * 批量插入订单产品
+     * @param
+     * @return int
+     */
+    int insertBatch(List<OrderProduct> list);
 
-    int insertSelective(OrderProduct record);
+    /**
+     * 根据订单ID查询订单产品列表
+     * @param
+     * @return List<OrderProductDto>
+     */
+    List<OrderProductDto> selectByOrderId(Integer orderId);
 
-    OrderProduct selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(OrderProduct record);
-
-    int updateByPrimaryKey(OrderProduct record);
 }

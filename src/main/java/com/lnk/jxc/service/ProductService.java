@@ -54,10 +54,4 @@ public interface ProductService {
      */
     int updateStatusById(Product product);
 
-    /**
-     * 修改库存
-     * @param Integer num
-     * @return int
-     */
-    int updateNumById(Product product);
 }

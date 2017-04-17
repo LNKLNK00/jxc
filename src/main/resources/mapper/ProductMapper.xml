@@ -71,9 +71,16 @@
     WHERE id = #{id,jdbcType=INTEGER}
   </update>
   
-  <update id="updateNumById" parameterType="com.lnk.jxc.model.Product" >
+  <update id="addNumById" parameterType="com.lnk.jxc.model.Product" >
     UPDATE product
     SET num = num + #{num,jdbcType=INTEGER}
-    WHERE id = #{id,jdbcType=INTEGER}
+    WHERE id = #{id,jdbcType=INTEGER} AND status = 1
+  </update>
+  
+  <update id="subNumById" parameterType="com.lnk.jxc.model.Product" >
+    UPDATE product
+    SET num = num - #{num,jdbcType=INTEGER}
+    WHERE id = #{id,jdbcType=INTEGER} AND num >= #{num,jdbcType=INTEGER}
+    AND status = 1
   </update>
 </mapper>

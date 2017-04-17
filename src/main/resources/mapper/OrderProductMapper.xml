@@ -8,97 +8,37 @@
     <result column="num" property="num" jdbcType="TINYINT" />
     <result column="rate" property="rate" jdbcType="REAL" />
     <result column="price" property="price" jdbcType="REAL" />
+    <result column="bid" property="bid" jdbcType="REAL" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, order_id, product_id, num, rate, price
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from order_product
-    where id = #{id,jdbcType=INTEGER}
+  
+  <resultMap id="PrintMap" type="com.lnk.jxc.response.OrderProductDto" >
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="names" property="productName" jdbcType="VARCHAR" />
+    <result column="norms" property="norms" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="TINYINT" />
+    <result column="rate" property="rate" jdbcType="REAL" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="total" property="total" jdbcType="REAL" />
+  </resultMap>
+  
+   <select id="selectByOrderId" resultMap="PrintMap" parameterType="java.lang.Integer" >
+	    SELECT
+	    opro.order_id,opro.product_id,opro.rate,
+		pro.names,pro.norms,pro.unit,pro.price,opro.num,ROUND(opro.num*pro.price,2) as total
+		FROM order_product opro
+		INNER JOIN product pro ON opro.product_id = pro.id
+		WHERE opro.order_id = #{orderId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from order_product
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.lnk.jxc.model.OrderProduct" >
-    insert into order_product (id, order_id, product_id, 
-      num, rate, price)
-    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, 
-      #{num,jdbcType=TINYINT}, #{rate,jdbcType=REAL}, #{price,jdbcType=REAL})
+  
+  <insert id="insertBatch" parameterType="java.util.List" >
+    INSERT INTO order_product (order_id, product_id, 
+      num, rate, price, bid)
+    VALUES 
+    <foreach item="item" index="index" collection="list" separator=",">
+      (#{item.orderId,jdbcType=INTEGER}, #{item.productId,jdbcType=INTEGER}, 
+      #{item.num,jdbcType=TINYINT}, #{item.rate,jdbcType=REAL}, #{item.price,jdbcType=REAL}, #{item.bid,jdbcType=REAL})
+    </foreach>
   </insert>
-  <insert id="insertSelective" parameterType="com.lnk.jxc.model.OrderProduct" >
-    insert into order_product
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="productId != null" >
-        product_id,
-      </if>
-      <if test="num != null" >
-        num,
-      </if>
-      <if test="rate != null" >
-        rate,
-      </if>
-      <if test="price != null" >
-        price,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="productId != null" >
-        #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null" >
-        #{num,jdbcType=TINYINT},
-      </if>
-      <if test="rate != null" >
-        #{rate,jdbcType=REAL},
-      </if>
-      <if test="price != null" >
-        #{price,jdbcType=REAL},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lnk.jxc.model.OrderProduct" >
-    update order_product
-    <set >
-      <if test="orderId != null" >
-        order_id = #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="productId != null" >
-        product_id = #{productId,jdbcType=INTEGER},
-      </if>
-      <if test="num != null" >
-        num = #{num,jdbcType=TINYINT},
-      </if>
-      <if test="rate != null" >
-        rate = #{rate,jdbcType=REAL},
-      </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=REAL},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.lnk.jxc.model.OrderProduct" >
-    update order_product
-    set order_id = #{orderId,jdbcType=INTEGER},
-      product_id = #{productId,jdbcType=INTEGER},
-      num = #{num,jdbcType=TINYINT},
-      rate = #{rate,jdbcType=REAL},
-      price = #{price,jdbcType=REAL}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
 </mapper>
