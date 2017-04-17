@@ -156,7 +156,7 @@ $(document).ready(function() {
      */
     var nCloneTh = document.createElement( 'th' );
     var nCloneTd = document.createElement( 'td' );
-    nCloneTd.innerHTML = '<img src="images/details_open.png">';
+    nCloneTd.innerHTML = '<img src="${basePath}/images/details_open.png">';
     nCloneTd.className = "center";
 
     $('#hidden-table-info thead tr').each( function () {
@@ -256,7 +256,7 @@ function addOrder(obj){
     newTr.append($("<td class='text-center'>"+tr.children().eq(3).html()+"</td>"));
     newTr.append($("<td class='text-center'>"+count+"</td>"));
     newTr.append($("<td class='text-center'>"+(price*count).toFixed(2)+"</td>"));
-    newTr.append($("<td class='text-center'><button onclick='remove(this)' class='btn btn-danger'>删除</button></td>"));
+    newTr.append($("<td class='text-center'><button onclick='removeTr(this)' class='btn btn-danger'>删除</button></td>"));
     tbody.append(newTr);
     if(tbody.children().length > 0){
         $("#toOrder").show();
@@ -265,7 +265,7 @@ function addOrder(obj){
     }
     toastr.info("添加成功！");
 }
-function remove(obj){
+function removeTr(obj){
     var tbody = $("#tbody");
     $(obj).parent().parent().remove();
     if(tbody.children().length <= 0){
