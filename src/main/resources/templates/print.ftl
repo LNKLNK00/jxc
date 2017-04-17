@@ -27,17 +27,21 @@
 <body style="background:white;">
     <div class="text-center" style="margin:30px;">
         <font style="font-size:28px;">芦洲兽药店销售订单</font><br/><br/>
-        <#if printDto?exists>
-           <font style="font-size:18px;">订单编号：${printDto.orderNo}&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;成交时间：${printDto.createTime}<br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;操作人：${printDto.userName}&nbsp;&nbsp;&nbsp;&nbsp;
-                &nbsp;&nbsp;&nbsp;&nbsp;联系电话：189 7950 6444(刘)</font>
-        </#if>
     </div>
     <div class="wrapper">
         <div class="panel">
             <table class="table table-bordered table-invoice">
                 <thead>
+                    <#if printDto?exists>
+                        <tr>
+                            <td class="text-left" colspan="2">订单编号：${printDto.orderNo}</td>
+                            <td class="text-left" colspan="4">成交时间：${printDto.createTime}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left" colspan="2">操作人：${printDto.userName}</td>
+                            <td class="text-left" colspan="4">联系电话：189 7950 6444(刘)</td>
+                        </tr>
+                    </#if>
                     <tr>
                         <th>商品名称</th>
                         <th class="text-center">规格</th>
