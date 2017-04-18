@@ -1,6 +1,8 @@
 package com.lnk.jxc.dao;
 
 import com.lnk.jxc.model.OrderInfo;
+import com.lnk.jxc.response.HomeChartDto;
+import com.lnk.jxc.response.HomeReportDto;
 
 /**
  * <p>title:订单数据访问接口</p>
@@ -24,4 +26,17 @@ public interface OrderInfoMapper {
      */
     int insert(OrderInfo orderInfo);
 
+    /**
+     * 统计订单汇总信息
+     * @param
+     * @return HomeReportDto
+     */
+    HomeReportDto selectTotal();
+
+    /**
+     * 根据日期查询订单汇总信息
+     * @param
+     * @return HomeChartDto
+     */
+    HomeChartDto selectTotalByDate(String date);
 }

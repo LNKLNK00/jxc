@@ -5,6 +5,8 @@ import java.util.List;
 import com.lnk.jxc.model.OrderInfo;
 import com.lnk.jxc.model.Product;
 import com.lnk.jxc.model.User;
+import com.lnk.jxc.response.HomeChartDto;
+import com.lnk.jxc.response.HomeReportDto;
 import com.lnk.jxc.response.OrderPrintDto;
 
 /**
@@ -28,4 +30,18 @@ public interface OrderService {
      * @return OrderPrintDto
      */
     OrderPrintDto getPrintList(Integer orderId);
+
+    /**
+     * 统计订单汇总信息
+     * @param
+     * @return HomeReportDto
+     */
+    HomeReportDto getTotal();
+
+    /**
+     * 统计近15日销售汇总信息
+     * @param
+     * @return List
+     */
+    List<HomeChartDto> getTotalNearHalfMonth();
 }

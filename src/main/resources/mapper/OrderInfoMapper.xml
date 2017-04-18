@@ -17,6 +17,19 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="selectTotal" resultType="com.lnk.jxc.response.HomeReportDto" >
+    SELECT 
+	COUNT(*) as total,SUM(price) as totalPrice
+	FROM order_info
+  </select>
+  
+  <select id="selectTotalByDate" resultType="com.lnk.jxc.response.HomeChartDto" parameterType="java.lang.String">
+    SELECT 
+	COUNT(*) AS num,SUM(price) AS price
+	FROM order_info
+	WHERE DATE_FORMAT(create_time,'%Y-%m-%d') = #{date}
+  </select>
+  
   <insert id="insert" parameterType="com.lnk.jxc.model.OrderInfo"  useGeneratedKeys="true" keyProperty="id">
     insert into order_info (order_no, price, 
       profit, create_time, user_name, 

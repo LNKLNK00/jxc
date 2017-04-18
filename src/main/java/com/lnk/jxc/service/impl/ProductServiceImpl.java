@@ -7,8 +7,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lnk.jxc.dao.OrderProductMapper;
 import com.lnk.jxc.dao.ProductMapper;
 import com.lnk.jxc.model.Product;
+import com.lnk.jxc.response.OrderProductDto;
 import com.lnk.jxc.service.ProductService;
 
 @Service
@@ -18,6 +20,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductMapper productMapper;
+    @Autowired
+    private OrderProductMapper orderProductMapper;
 
     @Override
     public int addProduct(Product product) {
@@ -51,6 +55,21 @@ public class ProductServiceImpl implements ProductService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<OrderProductDto> getTop5() {
+        return orderProductMapper.selectTop5();
+    }
+
+    @Override
+    public int getTotalNum() {
+        return orderProductMapper.selectTotalNum();
+    }
+
+    @Override
+    public int getOnLineCount() {
+        return productMapper.selectOnLineCount();
     }
 
 }

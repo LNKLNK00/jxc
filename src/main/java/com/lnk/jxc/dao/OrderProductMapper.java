@@ -27,4 +27,18 @@ public interface OrderProductMapper {
      */
     List<OrderProductDto> selectByOrderId(Integer orderId);
 
+    /**
+     * 查询销量前五名的商品
+     * @param
+     * @return List<OrderProductDto>
+     */
+    List<OrderProductDto> selectTop5();
+
+    /**
+     * 查询已销售商品总数
+     * @param
+     * @return int
+     */
+    int selectTotalNum();
+
 }

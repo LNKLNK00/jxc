@@ -2,6 +2,8 @@ package com.lnk.jxc.service.impl;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,8 +19,11 @@ import com.lnk.jxc.model.OrderInfo;
 import com.lnk.jxc.model.OrderProduct;
 import com.lnk.jxc.model.Product;
 import com.lnk.jxc.model.User;
+import com.lnk.jxc.response.HomeChartDto;
+import com.lnk.jxc.response.HomeReportDto;
 import com.lnk.jxc.response.OrderPrintDto;
 import com.lnk.jxc.service.OrderService;
+import com.lnk.jxc.util.DateUtil;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -87,6 +92,26 @@ public class OrderServiceImpl implements OrderService {
             print.setProductList(orderProductMapper.selectByOrderId(orderInfo.getId()));
         }
         return print;
+    }
+
+    @Override
+    public HomeReportDto getTotal() {
+        return orderInfoMapper.selectTotal();
+    }
+
+    @Override
+    public List<HomeChartDto> getTotalNearHalfMonth() {
+        List<HomeChartDto> list = new ArrayList<HomeChartDto>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_YEAR, -15);
+        for (int i = 0; i < 15; i++) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            HomeChartDto dto = orderInfoMapper.selectTotalByDate(DateUtil.format(calendar.getTime(), "YYYY-MM-dd"));
+            dto.setDate(DateUtil.format(calendar.getTime(), "MM-dd"));
+            list.add(dto);
+        }
+        return list;
     }
 
 }

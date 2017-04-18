@@ -32,6 +32,21 @@
 		WHERE opro.order_id = #{orderId,jdbcType=INTEGER}
   </select>
   
+  <select id="selectTop5" resultMap="PrintMap">
+        SELECT 
+		pro.names,SUM(opro.num) AS num,ROUND(SUM(pro.price*opro.num),2) AS price 
+		FROM order_product opro
+		INNER JOIN product pro ON pro.id = opro.product_id
+		GROUP BY opro.product_id
+		ORDER BY num DESC LIMIT 5
+  </select>
+  
+  <select id="selectTotalNum" resultType="java.lang.Integer">
+        SELECT 
+		SUM(num) as saleCount
+		FROM order_product
+  </select>
+  
   <insert id="insertBatch" parameterType="java.util.List" >
     INSERT INTO order_product (order_id, product_id, 
       num, rate, price, bid)

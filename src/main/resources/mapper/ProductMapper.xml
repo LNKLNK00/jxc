@@ -36,6 +36,12 @@
     FROM product WHERE status = 1
   </select>
   
+  <select id="selectOnLineCount" resultType="java.lang.Integer" >
+    SELECT 
+    COUNT(*)
+    FROM product WHERE status = 1
+  </select>
+  
   <insert id="addProduct" parameterType="com.lnk.jxc.model.Product" >
     INSERT INTO product (names, norms, 
       unit, bid, price, num, 

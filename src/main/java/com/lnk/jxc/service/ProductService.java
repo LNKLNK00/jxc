@@ -3,6 +3,7 @@ package com.lnk.jxc.service;
 import java.util.List;
 
 import com.lnk.jxc.model.Product;
+import com.lnk.jxc.response.OrderProductDto;
 
 /**
  * <p>title:商品数据访问类</p>
@@ -41,6 +42,13 @@ public interface ProductService {
     List<Product> selectOnLineProduct();
 
     /**
+     * 查询上架商品总数
+     * @param
+     * @return int
+     */
+    int getOnLineCount();
+
+    /**
      * 根据ID修改商品信息
      * @param Product product
      * @return int
@@ -53,5 +61,19 @@ public interface ProductService {
      * @return int
      */
     int updateStatusById(Product product);
+
+    /**
+     * 获取销量前五名的商品
+     * @param
+     * @return List<OrderProductDto>
+     */
+    List<OrderProductDto> getTop5();
+
+    /**
+     * 查询已销售商品总数
+     * @param
+     * @return int
+     */
+    int getTotalNum();
 
 }

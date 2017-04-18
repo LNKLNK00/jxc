@@ -57,10 +57,14 @@
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
                 <li id="menu-1" url="${basePath}/home.html"><a><i class="fa fa-home"></i> <span>主页</span></a></li>
-                <li id="menu-2" url="${basePath}/product/index.html"><a><i class="fa fa-tasks"></i> <span>商品管理</span></a></li>
+                <#if USERINFO.roleId == 1>
+	                <li id="menu-2" url="${basePath}/product/index.html"><a><i class="fa fa-tasks"></i> <span>商品管理</span></a></li>
+                </#if>
                 <li id="menu-3" url="${basePath}/stock/index.html"><a><i class="fa fa-truck"></i> <span>库存管理</span></a></li>
                 <li id="menu-4" url="${basePath}/order/index.html"><a><i class="fa fa-shopping-cart"></i> <span>销售管理</span></a></li>
-                <li id="menu-5" url="${basePath}/report/index.html"><a><i class="fa fa-bar-chart-o"></i> <span>销售报表</span></a></li>
+                <#if USERINFO.roleId == 1>
+                    <li id="menu-5" url="${basePath}/report/index.html"><a><i class="fa fa-bar-chart-o"></i> <span>销售报表</span></a></li>
+                </#if>
             </ul>
             <!--sidebar nav end-->
 

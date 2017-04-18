@@ -41,6 +41,13 @@ public interface ProductMapper {
     List<Product> selectOnLineProduct();
 
     /**
+     * 查询上架商品总数
+     * @param
+     * @return int
+     */
+    int selectOnLineCount();
+
+    /**
      * 根据ID修改商品信息
      * @param Product product
      * @return int
