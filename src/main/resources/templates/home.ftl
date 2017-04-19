@@ -92,7 +92,7 @@
                             <table class="table" style="margin-bottom:0;">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>销售排名</th>
                                         <th>商品名称</th>
                                         <th>销售数量</th>
                                         <th>销售金额</th>
@@ -102,7 +102,7 @@
                                     <#if productList?exists>
                                         <#list productList as product>
                                             <tr>
-                                                <td>${product_index+1}</td>
+                                                <td>第${product_index+1}名</td>
                                                 <td>${product.productName}</td>
                                                 <td>${product.num}</td>
                                                 <td>${product.price}</td>

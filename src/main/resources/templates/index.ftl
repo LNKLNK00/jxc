@@ -11,20 +11,20 @@
   <title>芦洲兽药管理系统</title>
 
   <!--icheck-->
-  <link href="js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
-  <link href="js/iCheck/skins/square/square.css" rel="stylesheet">
-  <link href="js/iCheck/skins/square/red.css" rel="stylesheet">
-  <link href="js/iCheck/skins/square/blue.css" rel="stylesheet">
+  <link href="${basePath}/js/iCheck/skins/minimal/minimal.css" rel="stylesheet">
+  <link href="${basePath}/js/iCheck/skins/square/square.css" rel="stylesheet">
+  <link href="${basePath}/js/iCheck/skins/square/red.css" rel="stylesheet">
+  <link href="${basePath}/js/iCheck/skins/square/blue.css" rel="stylesheet">
 
   <!--dashboard calendar-->
-  <link href="css/clndr.css" rel="stylesheet">
+  <link href="${basePath}/css/clndr.css" rel="stylesheet">
 
   <!--Morris Chart CSS -->
-  <link rel="stylesheet" href="js/morris-chart/morris.css">
+  <link rel="stylesheet" href="${basePath}/js/morris-chart/morris.css">
 
   <!--common-->
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/style-responsive.css" rel="stylesheet">
+  <link href="${basePath}/css/style.css" rel="stylesheet">
+  <link href="${basePath}/css/style-responsive.css" rel="stylesheet">
 
 
 
@@ -44,11 +44,11 @@
 
         <!--logo and iconic logo start-->
         <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt=""></a>
+            <a href="index.html"><img src="${basePath}/images/logo.png" alt=""></a>
         </div>
 
         <div class="logo-icon text-center">
-            <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
+            <a href="index.html"><img src="${basePath}/images/logo_icon.png" alt=""></a>
         </div>
         <!--logo and iconic logo end-->
 
@@ -56,7 +56,7 @@
 
             <!--sidebar nav start-->
             <ul class="nav nav-pills nav-stacked custom-nav">
-                <li id="menu-1" url="${basePath}/home.html"><a><i class="fa fa-home"></i> <span>主页</span></a></li>
+                <li id="menu-1" url="${basePath}/home.html" onclick="$('#iframe1').attr('src', $('#iframe1').attr('src'));"><a><i class="fa fa-home"></i> <span>主页</span></a></li>
                 <#if USERINFO.roleId == 1>
 	                <li id="menu-2" url="${basePath}/product/index.html"><a><i class="fa fa-tasks"></i> <span>商品管理</span></a></li>
                 </#if>
@@ -87,7 +87,7 @@
                 <ul class="notification-menu">
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <img src="images/avatar-mini.jpg" alt="" />
+                            <img src="${basePath}/images/avatar-mini.jpg" alt="" />
                             ${USERINFO.username}
                             <span class="caret"></span>
                         </a>
@@ -100,13 +100,13 @@
 	        <section class="panel">
 	           <header class="panel-heading custom-tab" id="panel-heading">
 	               <ul class="nav nav-tabs">
-	                   <li id="title-1" onclick="changeTab(this);" class="active"><a href="#home-1" data-toggle="tab">主页</a></li>
+	                   <li id="title-1" onclick="$('#iframe1').attr('src', $('#iframe1').attr('src'));" class="active"><a href="#home-1" data-toggle="tab">主页</a></li>
 	               </ul>
 	           </header>
 	           <div class="panel-body">
 	               <div class="tab-content">
 	                   <div class="tab-pane active" id="home-1">
-                            <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${basePath}/home.html" frameborder="0" data-id="" seamless></iframe>
+                            <iframe class="J_iframe" id="iframe1" name="iframe1" width="100%" height="100%" src="${basePath}/home.html" frameborder="0" data-id="" seamless></iframe>
 	                   </div>
 	               </div>
 	           </div>
@@ -121,12 +121,12 @@
 </section>
 
 <!-- Placed js at the end of the document so the pages load faster -->
-<script src="js/jquery-1.10.2.min.js"></script>
-<script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/modernizr.min.js"></script>
-<script src="js/jquery.nicescroll.js"></script>
+<script src="${basePath}/js/jquery-1.10.2.min.js"></script>
+<script src="${basePath}/js/jquery-ui-1.9.2.custom.min.js"></script>
+<script src="${basePath}/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="${basePath}/js/bootstrap.min.js"></script>
+<script src="${basePath}/js/modernizr.min.js"></script>
+<script src="${basePath}/js/jquery.nicescroll.js"></script>
 
 <!--common scripts for all pages-->
 <script src="js/scripts.js"></script>
@@ -150,7 +150,7 @@
 			var url = $(this).attr("url");
 			var title = $("<li id='title-"+id+"'><a href='#home-"+id+"' data-toggle='tab'>"+title+" <i onclick='removeTab(this);' class='fa fa-times-circle'></i></a></li>");
 			$(".nav-tabs").append(title);
-			var home = $(".tab-content").html() + "<div class='tab-pane' id='home-"+id+"'><iframe class='J_iframe' name='iframe0' width='100%' height='100%' src='"+url+"' frameborder='0' data-id='' seamless></iframe></div>";
+			var home = $(".tab-content").html() + "<div class='tab-pane' id='home-"+id+"'><iframe class='J_iframe' name='iframe"+id+"' width='100%' height='100%' src='"+url+"' frameborder='0' data-id='' seamless></iframe></div>";
 			$(".tab-content").html(home);
 			initIframe();
 			$("#title-"+id).addClass("active").siblings().removeClass("active");
