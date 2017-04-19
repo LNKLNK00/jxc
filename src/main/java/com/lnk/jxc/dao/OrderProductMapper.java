@@ -1,9 +1,11 @@
 package com.lnk.jxc.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lnk.jxc.model.OrderProduct;
 import com.lnk.jxc.response.OrderProductDto;
+import com.lnk.jxc.response.ReportProductSalesRankDto;
 
 /**
  * <p>title:订单产品数据访问接口</p>
@@ -35,10 +37,24 @@ public interface OrderProductMapper {
     List<OrderProductDto> selectTop5();
 
     /**
+     * 查询商品销售排行
+     * @param startDate endDate
+     * @return List<ReportProductSalesRankDto>
+     */
+    List<ReportProductSalesRankDto> selectSalesRank(Map<String, String> param);
+
+    /**
      * 查询已销售商品总数
      * @param
      * @return int
      */
     int selectTotalNum();
+
+    /**
+     * 查询所有订单商品记录
+     * @param
+     * @return List<OrderProductDto>
+     */
+    List<OrderProductDto> selectAll();
 
 }

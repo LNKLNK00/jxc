@@ -1,6 +1,7 @@
 package com.lnk.jxc.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import com.lnk.jxc.dao.OrderProductMapper;
 import com.lnk.jxc.dao.ProductMapper;
 import com.lnk.jxc.model.Product;
 import com.lnk.jxc.response.OrderProductDto;
+import com.lnk.jxc.response.ReportProductSalesRankDto;
 import com.lnk.jxc.service.ProductService;
 
 @Service
@@ -70,6 +72,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int getOnLineCount() {
         return productMapper.selectOnLineCount();
+    }
+
+    @Override
+    public List<ReportProductSalesRankDto> salesRank(Map<String, String> param) {
+        return orderProductMapper.selectSalesRank(param);
+    }
+
+    @Override
+    public List<OrderProductDto> getOrderProductList() {
+        return orderProductMapper.selectAll();
     }
 
 }

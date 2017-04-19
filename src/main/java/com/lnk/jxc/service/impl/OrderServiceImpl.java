@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ import com.lnk.jxc.model.User;
 import com.lnk.jxc.response.HomeChartDto;
 import com.lnk.jxc.response.HomeReportDto;
 import com.lnk.jxc.response.OrderPrintDto;
+import com.lnk.jxc.response.ReportOrderMonthDto;
 import com.lnk.jxc.service.OrderService;
 import com.lnk.jxc.util.DateUtil;
 
@@ -112,6 +114,16 @@ public class OrderServiceImpl implements OrderService {
             list.add(dto);
         }
         return list;
+    }
+
+    @Override
+    public List<ReportOrderMonthDto> getTotalByMonth(Map<String, String> param) {
+        return orderInfoMapper.selectTotalByMonth(param);
+    }
+
+    @Override
+    public List<OrderInfo> getOrderList() {
+        return orderInfoMapper.selectAll();
     }
 
 }

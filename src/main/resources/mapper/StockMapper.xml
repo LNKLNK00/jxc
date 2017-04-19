@@ -8,7 +8,7 @@
     <result column="norms" property="norms" jdbcType="VARCHAR" />
     <result column="unit" property="unit" jdbcType="CHAR" />
     <result column="factory" property="factory" jdbcType="VARCHAR" />
-    <result column="num" property="num" jdbcType="TINYINT" />
+    <result column="num" property="num" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="TINYINT" />
@@ -27,6 +27,6 @@
     INSERT INTO stock (product_id, product_name, 
       num, create_time, user_name, user_id)
     VALUES (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, 
-      #{num,jdbcType=TINYINT}, NOW(), #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=TINYINT})
+      #{num,jdbcType=INTEGER}, NOW(), #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=TINYINT})
   </insert>
 </mapper>

@@ -17,10 +17,27 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT 
+	order_no,price,profit,user_name,DATE_FORMAT(ord.create_time,'%Y-%m-%d %T')AS create_time
+	FROM order_info ord
+	ORDER BY ord.create_time DESC
+  </select>
+  
   <select id="selectTotal" resultType="com.lnk.jxc.response.HomeReportDto" >
     SELECT 
 	COUNT(*) as total,SUM(price) as totalPrice
 	FROM order_info
+  </select>
+  
+  <select id="selectTotalByMonth" parameterType="java.util.Map" resultType="com.lnk.jxc.response.ReportOrderMonthDto">
+    SELECT 
+	DATE_FORMAT(ord.create_time,'%Y-%m') AS month,
+	COUNT(*) AS num,SUM(ord.price) AS price,SUM(ord.profit) AS profit
+	FROM order_info ord
+	WHERE DATE_FORMAT(ord.create_time,'%Y-%m') BETWEEN DATE_FORMAT(#{startDate},'%Y-%m') AND DATE_FORMAT(#{endDate},'%Y-%m')
+	GROUP BY DATE_FORMAT(ord.create_time,'%Y-%m')
+	ORDER BY DATE_FORMAT(ord.create_time,'%Y-%m') DESC
   </select>
   
   <select id="selectTotalByDate" resultType="com.lnk.jxc.response.HomeChartDto" parameterType="java.lang.String">

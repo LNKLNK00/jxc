@@ -6,19 +6,27 @@ public class OrderProductDto {
 
     private Integer productId;
 
+    private String orderNo;
+
     private String productName;
 
     private String norms;
 
     private String unit;
 
+    private String factory;
+
+    private Float price;
+
+    private Float bid;
+
     private Integer num;
 
     private Float rate;
 
-    private Float price;
-
     private Float total;
+
+    private String createTime;
 
     public Integer getOrderId() {
         return orderId;
@@ -90,5 +98,37 @@ public class OrderProductDto {
 
     public void setTotal(Float total) {
         this.total = total;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public String getFactory() {
+        return factory;
+    }
+
+    public void setFactory(String factory) {
+        this.factory = factory;
+    }
+
+    public Float getBid() {
+        return bid;
+    }
+
+    public void setBid(Float bid) {
+        this.bid = bid;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

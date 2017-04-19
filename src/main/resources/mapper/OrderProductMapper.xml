@@ -23,28 +23,64 @@
     <result column="total" property="total" jdbcType="REAL" />
   </resultMap>
   
+  <resultMap id="SalesRankMap" type="com.lnk.jxc.response.ReportProductSalesRankDto" >
+    <result column="names" property="productName" jdbcType="VARCHAR" />
+    <result column="norms" property="norms" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="factory" property="factory" jdbcType="VARCHAR" />
+    <result column="bid" property="bid" jdbcType="REAL" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="num" property="num" jdbcType="TINYINT" />
+    <result column="total_price" property="totalPrice" jdbcType="REAL" />
+    <result column="profit" property="profit" jdbcType="REAL" />
+  </resultMap>
+  
    <select id="selectByOrderId" resultMap="PrintMap" parameterType="java.lang.Integer" >
-	    SELECT
-	    opro.order_id,opro.product_id,opro.rate,
-		pro.names,pro.norms,pro.unit,pro.price,opro.num,ROUND(opro.num*pro.price,2) as total
+        SELECT
+        opro.order_id,opro.product_id,opro.rate,
+        pro.names,pro.norms,pro.unit,pro.price,opro.num,ROUND(opro.num*pro.price,2) as total
+        FROM order_product opro
+        INNER JOIN product pro ON opro.product_id = pro.id
+        WHERE opro.order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectAll" resultType="com.lnk.jxc.response.OrderProductDto">
+        SELECT 
+		ord.order_no AS orderNo,pro.names AS productName,pro.norms,pro.unit,pro.factory,pro.bid,
+		pro.price,opro.num,DATE_FORMAT(ord.create_time,'%Y-%m-%d %T')AS createTime
 		FROM order_product opro
-		INNER JOIN product pro ON opro.product_id = pro.id
-		WHERE opro.order_id = #{orderId,jdbcType=INTEGER}
+		INNER JOIN order_info ord ON opro.order_id = ord.id
+		INNER JOIN product pro ON pro.id = opro.product_id
+		ORDER BY ord.create_time DESC
   </select>
   
   <select id="selectTop5" resultMap="PrintMap">
         SELECT 
-		pro.names,SUM(opro.num) AS num,ROUND(SUM(pro.price*opro.num),2) AS price 
-		FROM order_product opro
-		INNER JOIN product pro ON pro.id = opro.product_id
-		GROUP BY opro.product_id
-		ORDER BY num DESC LIMIT 5
+        pro.names,SUM(opro.num) AS num,ROUND(SUM(pro.price*opro.num),2) AS price 
+        FROM order_product opro
+        INNER JOIN product pro ON pro.id = opro.product_id
+        GROUP BY opro.product_id
+        ORDER BY num DESC LIMIT 5
+  </select>
+  
+  <!-- 销售排行 -->
+  <select id="selectSalesRank" resultMap="SalesRankMap" parameterType="java.util.Map">
+        SELECT 
+        pro.names,pro.norms,pro.unit,pro.factory,pro.bid,pro.price,
+        SUM(opro.num) AS num,ROUND(SUM(pro.price*opro.num),2) AS total_price,
+        ROUND(SUM((pro.price-pro.bid)*opro.num),2) AS profit
+        FROM order_product opro
+        INNER JOIN product pro ON pro.id = opro.product_id
+        INNER JOIN order_info ord ON ord.id = opro.order_id
+        WHERE DATE_FORMAT(ord.create_time,'%Y-%m-%d') BETWEEN DATE_FORMAT(#{startDate},'%Y-%m-%d') AND DATE_FORMAT(#{endDate},'%Y-%m-%d')
+        GROUP BY opro.product_id
+        ORDER BY num DESC 
   </select>
   
   <select id="selectTotalNum" resultType="java.lang.Integer">
         SELECT 
-		SUM(num) as saleCount
-		FROM order_product
+        SUM(num) as saleCount
+        FROM order_product
   </select>
   
   <insert id="insertBatch" parameterType="java.util.List" >

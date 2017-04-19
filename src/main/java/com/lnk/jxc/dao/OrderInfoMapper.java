@@ -1,8 +1,12 @@
 package com.lnk.jxc.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.lnk.jxc.model.OrderInfo;
 import com.lnk.jxc.response.HomeChartDto;
 import com.lnk.jxc.response.HomeReportDto;
+import com.lnk.jxc.response.ReportOrderMonthDto;
 
 /**
  * <p>title:订单数据访问接口</p>
@@ -39,4 +43,18 @@ public interface OrderInfoMapper {
      * @return HomeChartDto
      */
     HomeChartDto selectTotalByDate(String date);
+
+    /**
+     * 月度销售报表统计
+     * @param startDate endDate
+     * @return List<ReportOrderMonthDto>
+     */
+    List<ReportOrderMonthDto> selectTotalByMonth(Map<String, String> param);
+
+    /**
+     * 查询所有订单
+     * @param
+     * @return List<OrderInfo>
+     */
+    List<OrderInfo> selectAll();
 }

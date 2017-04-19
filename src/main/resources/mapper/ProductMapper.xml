@@ -8,7 +8,7 @@
     <result column="unit" property="unit" jdbcType="CHAR" />
     <result column="bid" property="bid" jdbcType="REAL" />
     <result column="price" property="price" jdbcType="REAL" />
-    <result column="num" property="num" jdbcType="TINYINT" />
+    <result column="num" property="num" jdbcType="INTEGER" />
     <result column="factory" property="factory" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="BIT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
